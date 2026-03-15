@@ -12,15 +12,15 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'OpenWRT version (e.g., 24.10.5)'
+        description: 'OpenWRT version 23.05-Snapshot'
         required: true
         type: string
       targets:
-        description: 'Targets (comma-separated, optional)'
+        description: 'Targets'
         required: false
         type: string
       subtargets:
-        description: 'Subtargets (comma-separated, optional)'
+        description: 'Subtargets '
         required: false
         type: string
 
@@ -74,7 +74,8 @@ jobs:
     needs: generate-config
     strategy:
       matrix:
-        build_env: ${{ fromJson(needs.generate-config.outputs.job-config) }}
+        build_env: ${{ fromJson(needs.generate-config.outputs.job-config) }} tag:"23.05-SNAPSHOT",pkgarch:aarch64_cortex-a53_neon-vfpv4,target:ipq53xx,subtarget:generic,vermagic:"9bbeb3b224e3e25c93c10e0a5e1b66bd"
+        
       fail-fast: false
 
     steps:
